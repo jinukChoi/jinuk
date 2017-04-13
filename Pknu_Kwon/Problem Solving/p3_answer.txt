@@ -1,0 +1,276 @@
+1번
+#include<stdio.h>
+void main() {
+	int sum = 0;
+	int count = 1;
+	int input = 0;
+
+	while (1) {
+		scanf("%d", &input);
+		if (count % 2 == 0)
+			sum = sum - input;
+		else
+			sum = sum + input;
+		if (sum == 0)
+			break;
+		count++;
+	}
+	printf("%d", count);
+}
+2번
+#include <stdio.h>
+int main(void) {
+	int N;
+	scanf("%d", &N);
+	/* 여기에서 N보다 작거나 같으면서 가장 큰 2의 거듭제곱수 v를 구한다. */
+	int v = 1
+		;
+	while (1)
+	{
+		if (v > N) {
+			v = v / 2;
+			break;
+		}
+		else if (v == N)
+			break;
+		v = v * 2;
+	}
+
+	while (v > 0) {
+		/* N ≥ v이면 N = N-v가되고 */
+		if (N >= v)
+		{
+			N = N - v;
+			printf("1");
+		}
+		else
+			printf("0");
+
+		v = v / 2;
+	}
+}
+3번
+#include<stdio.h>
+
+void main() {
+	int x = 0;
+	int y = 0;
+	int GCD = 0;
+	scanf("%d %d", &x, &y);
+
+	if (x < y) {
+		int temp = x;
+		x = y;
+		y = temp;
+	}
+
+
+	while (1)
+	{
+		if (x%y == 0)
+		{
+			GCD = y;
+			break;
+		}
+		else
+		{
+			int temp=x;
+			x = y;
+			y = temp%y;
+		}
+	}
+
+	printf("GCD %d", GCD);
+}
+4번
+#include<stdio.h>
+void main() {
+	int chiper = 10;
+	int input = 0;
+	int temp = 0;
+	int result = 1;
+
+	scanf("%d", &input);
+	result = input;
+	
+	while (result != 0) {
+		temp = input / chiper;
+		printf("%d", result - (temp * 10));
+		chiper = chiper * 10;
+		result = temp;
+	}
+5번
+#include<stdio.h>
+
+void main() {
+
+	int input = 0;
+	int prev = 0;
+	int prev_prev = 0;
+	int cnt = 0;
+
+	while (1) {
+
+		scanf("%d", &input);
+		
+
+		if (prev_prev == 0 && prev > input)
+			cnt++;
+		else if (prev_prev<prev&&prev>input)
+			cnt++;
+		else if (input == -1 &&prev_prev<prev)
+			cnt++;
+		else;
+
+
+		if (prev == 0)
+			prev = input;
+		else {
+			prev_prev = prev;
+			prev = input;
+		}
+
+		if (input == -1)
+			break;
+	}
+
+	printf("%d", cnt);
+}
+6번
+#include<stdio.h>
+
+void main() {
+
+	int input = 0;
+	int prev = 0;
+	int prev_prev = 0;
+	int cnt = 0;
+
+	while (1) {
+
+		scanf("%d", &input);
+		
+
+		if (prev_prev == 0 && prev > input)
+			cnt++;
+		else if (prev_prev<prev&&prev>input)
+			cnt++;
+		else if (input == -1 &&prev_prev<prev)
+			cnt++;
+		else;
+
+
+		if (prev == 0)
+			prev = input;
+		else {
+			prev_prev = prev;
+			prev = input;
+		}
+
+		if (input == -1)
+			break;
+	}
+
+	printf("%d", cnt);
+}
+7번
+#include<stdio.h>
+
+void main() {
+
+	int input = 0;
+	int result = 0;
+	scanf("%d", &input);
+
+	if (input <= 12000000) { result += input*0.06; }
+	else {
+		result += 12000000 * 0.06;
+		if (input <= 46000000) { result += (input- 12000000)*0.15; }
+		else {
+			result += (46000000- 12000000) *0.15;
+
+			if (input <= 88000000) {result += (input - 46000000)*0.24; }
+			else {
+				result += (88000000- 46000000) * 0.24;
+				
+				if (input <= 150000000) { result += (input - 88000000) *0.35; }
+				else {
+					result += (150000000- 88000000) * 0.35;
+					
+					if (input <= 500000000) {result += (input - 150000000) *0.38; }
+					else {
+						result += (500000000 - 150000000)* 0.38;
+						input = input - 500000000;
+						result += input*0.4;
+					}
+				}
+			}
+
+		}
+	}
+
+	printf("%d", result);
+}
+8번
+#include<stdio.h>
+
+void main() {
+
+	int input = 0;
+	int prev_input = 0;
+	int change = 0;
+
+
+	bool non_decreasing = false;
+	bool non_increasing = false;
+	bool con = false; //true 볼록
+	while (1) {
+
+		scanf("%d", &input);
+
+		if (input == -1)
+			break;
+
+		if (prev_input == 0)
+		{
+			prev_input = input;
+			continue;
+		}
+
+		if (prev_input > input)//>> 비증가로
+		{
+			if (non_decreasing) {
+				con = true;
+				change++;
+				non_decreasing = false;
+			}
+
+			non_increasing = true;
+		}
+		else if (prev_input < input)//>>비감소로
+		{
+			if (non_increasing) {
+				con = false;
+				change++;
+				non_increasing = false;
+			}
+			non_decreasing = true;
+		}
+		else;//같은수일때 생략
+		prev_input = input;
+	}
+
+	if (change == 0)
+		printf("Both");
+	if (change == 1 && con == true)
+		printf("Convex");
+	if (change == 1 && con == false)
+		printf("Concave");
+	if (change >= 2)
+		printf("None");
+
+}
+
+
+
+

@@ -1,0 +1,334 @@
+1번
+#include<stdio.h>
+
+int main() {
+	int data[100];
+	int n = 0;
+	int min = 0;
+	int prev_min = 0;
+
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++)
+		scanf("%d", &data[i]);
+
+	min = data[0];
+	int max = data[0];
+
+	for (int i = 1; i < n; i++) {
+		if (data[i] > max)
+			max = data[i];
+	}
+	prev_min = max;
+	
+	for (int i = 1; i < n; i++) {
+		if (data[i] <= min) {
+			prev_min = min;
+			min = data[i];
+		}
+		if (min<data[i] && prev_min>data[i]) {
+			prev_min = data[i];
+		}
+	}
+
+	printf("min:%d  prev_min:%d", min, prev_min);
+}
+2번
+#include<stdio.h>
+#include<math.h>
+
+int main() {
+	double data[100];
+	int n = 0;
+	double Avg = 0;
+	double Sd= 0;
+	double sum = 0;
+
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++) {
+		scanf("%lf", &data[i]);
+		sum = sum + data[i];
+	}
+	Avg = (double)sum / n;//x-
+	sum = 0;
+	for (int i = 0; i < n; i++) {
+		double x = (data[i] - Avg);
+			x = x*x;
+			sum += x;
+	}
+	Sd = sqrt((double)sum / n);
+
+	printf("Avg:%lf Sd:%lf",Avg,Sd);
+}
+3번
+#include<stdio.h>
+
+int main() {
+	
+	int year1 = 0;
+	int year2 = 0;
+	int month1 = 0;
+	int month2 = 0;
+	int day1 = 0;
+	int day2 = 0;
+	int sum1 = 0;
+	int sum2 = 0;
+	int data[13] = { 0,31 ,28 ,31 ,30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	scanf("%d %d %d", &year1, &month1, &day1);
+	scanf("%d %d %d", &year2, &month2, &day2);
+
+	for (int i = 1; i <= month1; i++) {
+		sum1 += data[i-1];
+	}
+	for (int i = 1; i <= month2; i++) {
+		sum2 += data[i-1];
+	}
+
+	sum1 = (365 * (year1-1)) + sum1 + day1;
+	sum2= (365 * (year2-1)) + sum2 + day2;
+	
+	printf("%d",sum2-sum1);
+}
+4번
+#include<stdio.h>
+
+int main() {
+	int data[100];
+	int n = 0;
+	int k = 0;
+	int diff1 = 0;
+	int result = 0;
+
+	printf("n:");
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++)
+		scanf("%d", &data[i]);
+
+	printf("k:");
+	scanf("%d", &k);
+
+	if (k >= data[0])
+		diff1 = k - data[0];
+	else
+		diff1 = data[0] - k;
+
+
+	for (int i = 1; i < n; i++) {
+		int diff2 = 0;
+
+		if (k >= data[i])
+			diff2 = k - data[i];
+		else
+			diff2 = data[i] - k;
+		
+		if (diff1 > diff2) {
+			diff1 = diff2;
+			result = data[i];
+		}
+	
+	}
+
+	printf("%d", result);
+}
+5번
+#include<stdio.h>
+#define MAX 100 
+
+int main(void) {
+
+	int data[MAX];
+	int n = 0;
+	int tmp;
+	int last_number=0;
+	int temp = 0;
+
+	FILE *fp = fopen("input5.txt", "r");
+	while (fscanf(fp, "%d", &tmp) != EOF)
+		data[n++] = tmp; 
+	fclose(fp);
+
+	for (int i = 0; i < n; i++)
+		printf("%d ", data[i]);
+
+	printf("\n");
+	last_number = data[n - 1];
+
+	for (int i = n-1; i >=1; i--) 
+		data[i] = data[i - 1];
+	
+	data[0] = last_number;
+
+	for (int i = 0; i < n; i++)
+		printf("%d ",data[i]);
+
+}
+6번
+#include<stdio.h>
+#define MAX 100 
+
+int main(void) {
+
+	int data[MAX];
+	int n = 0;
+	int tmp;
+	int temp = 0;
+
+	FILE *fp = fopen("input5.txt", "r");
+	while (fscanf(fp, "%d", &tmp) != EOF)
+		data[n++] = tmp;
+	fclose(fp);
+
+	for (int i = 0; i < n; i++)
+		printf("%d ", data[i]);
+
+	printf("\n");
+
+
+	for (int i = 0; i < n/2; i++){
+		temp = data[i];
+		data[i] = data[(n - 1) - i];
+		data[(n - 1) - i] = temp;
+	}
+
+	for (int i = 0; i < n; i++)
+		printf("%d ", data[i]);
+}
+7번
+#include<stdio.h>
+#define MAX 100 
+
+int main(void) {
+
+	int data[MAX];
+	int n = 0;
+	int tmp;
+	int maxdata = 0;
+	int N = 1;
+
+	FILE *fp = fopen("input7.txt", "r");
+
+	while (fscanf(fp, "%d", &tmp) != EOF)
+		data[n++] = tmp;
+	fclose(fp);
+
+
+	for (int i = 0; i < n; i++)
+		printf("%d ", data[i]);
+
+	printf("\n");
+	maxdata = data[0];
+
+	for (int x = 1; x < n; x++) {
+		if (data[x]>=maxdata) {
+			data[N++] = data[x];
+			maxdata = data[x];
+		}
+	}
+
+	printf("%d: ",N);
+	for (int i = 0; i < N; i++)
+		printf("%d ",data[i]);
+}
+8번
+#include<stdio.h>
+#define MAX 100 
+
+void main(void) {
+
+	int data1[MAX];
+	int data2[MAX];
+	int data3[MAX];
+	int n1 = 0;
+	int n2 = 0;
+	int n3 = 0;
+	int tmp;
+
+	FILE *fp = fopen("input8_1.txt", "r");
+	while (fscanf(fp, "%d", &tmp) != EOF)
+		data1[n1++] = tmp;
+	fclose(fp);
+
+	FILE *fp1 = fopen("input8_2.txt", "r");
+	while (fscanf(fp1, "%d", &tmp) != EOF)
+		data2[n2++] = tmp;
+	fclose(fp1);
+
+	n3 = n1 + n2;
+
+	printf("input1: ");
+	for (int i = 0; i < n1; i++)
+		printf("%d ", data1[i]);
+	printf("\n");
+
+	printf("input2: ");
+	for (int i = 0; i < n2; i++)
+		printf("%d ", data2[i]);
+	printf("\n");
+
+
+
+	int x = 0,y=0;
+	for (int i = 0; i < n3; i++) {
+		if (i % 2 == 0)
+			data3[i] = data1[x++];
+		else
+			data3[i] = data2[y++];
+	}
+
+
+
+
+	for (int i = 0; i < n3; i++) {
+		printf("%d ", data3[i]);
+	}
+}
+9번
+#include<stdio.h>
+#include<math.h>
+#define MAX 100 
+
+int main(void) {
+
+	int data[MAX];
+	int n = 0;
+	int tmp;
+	int x = 0;
+	int y = 0;
+	double Avg_x = 0;
+	double Avg_y = 0;
+	double result = 0;
+
+	FILE *fp = fopen("input9_2.txt", "r");
+	while (fscanf(fp, "%d", &tmp) != EOF)
+		data[n++] = tmp;
+	fclose(fp);
+
+	for (int i = 0; i < n; i++) {
+		if (i % 2 == 0)
+			x = x + data[i];
+		else
+			y = y + data[i];
+	}
+
+	Avg_x = (double)x / (n / 2);
+	Avg_y = (double)y / (n / 2);
+	printf("%lf %lf\n", Avg_x, Avg_y);
+
+	double x_x = 0;
+	double y_y = 0;
+
+	for (int i = 0; i < n - 1; i += 2) {
+		x_x = Avg_x- data[i];
+		y_y = Avg_y- data[i + 1];
+		x_x = x_x*x_x;
+		y_y = y_y*y_y;
+
+		result+=sqrt(x_x + y_y);
+	}
+
+	printf("%lf\n", (double)result/(n / 2));
+
+}

@@ -1,0 +1,444 @@
+1번#include<stdio.h> 
+int main(void)
+{
+	int count = 0;
+
+	for (int x = 0; x <= 100; x++)
+	{
+		for (int y = (((1 * x+2) / 3)); y <= ((2 * x) / 3); y++)
+		{
+			if (x*x + y*y <= 10000)
+				count++;
+		}
+	}
+	printf("The number of points is %d.\n", count);  
+	return 0;
+}
+
+2번
+#include <stdio.h> 
+bool GCD(int x,int y) {
+
+	int GCD = 0;
+	if (x < y) {
+		int temp = x;
+		x = y;
+		y = temp;
+	}
+
+	while (1)
+	{
+		if (x%y == 0)
+		{
+			GCD = y;
+			break;
+		}
+		else
+		{
+			int temp = x;
+			x = y;
+			y = temp%y;
+		}
+	}
+	if (GCD == 1)
+		return true;
+	else
+		return false;
+}
+int main(void)
+{
+	int cnt = 0;
+
+	for (int i = 2; i <= 100; i++) {
+		for (int z = i+1; z <= 100; z++) {
+			for (int y = z+1; y <= 100; y++) {
+				if (GCD(i, z) && GCD(i, y) && GCD(z, y))
+					cnt++;
+			}
+		}
+	}
+	printf("%d",cnt);
+	return 0;
+}
+
+3번
+#include <stdio.h> 
+
+int main() {
+	int n;
+	scanf("%d", &n);
+
+	int count = 0;
+	int j;
+	for (int i = 1; i < n; i++) {
+		j = i;
+		while (1) {
+			if (j % 10 == 0)
+				count++;
+			j = j / 10;
+			if (j < 10)
+				break;
+		}
+	}
+	printf("%d", count);
+	return 0;
+}
+
+4번
+#include <stdio.h> 
+
+int main() {
+	int n;
+	scanf("%d", &n);
+
+	int cnt = 0;
+	int j = 0;
+	int sum = 0;
+
+	for (int i = 1; i <= n; i++) {
+		j = i;
+		while (1)
+		{
+			sum += j % 10;
+			j = j / 10;
+			if (j ==0)
+				break;
+		}
+		if (sum != 0 &&sum % 7 == 0)
+			cnt++;
+		sum = 0;
+	}
+	printf("%d", cnt);
+	return 0;
+}
+5번
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+void main() {
+	srand((unsigned int)time(NULL));
+
+	int n = 0;
+	int T = 0;
+	int cnt = 0;
+	int x = 0, y = 0;
+
+	scanf("%d", &n);
+
+	for (int i = 0; i < 1000; i++) {
+		while(x != n&& x != -n && y != n && y != -n){
+			int result =rand() %4 ;//0북1남2서3동
+		
+			if (result == 0)
+				y++;
+			else if (result == 1)
+				y--;
+			else if (result == 2)
+				x--;
+			else
+				x++;;
+
+			cnt++;
+		}
+		x = 0; 
+		y = 0;
+	}
+	printf("%d", cnt/1000);
+}
+6번
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+void main() {
+	srand((unsigned int)time(NULL));
+
+	int n = 0;
+	int T = 0;
+	int cnt1 = 0;
+	int cnt2 = 0;
+
+	int last_cnt1 = 0;
+	int last_cnt2 = 0;
+
+	
+	for (int i = 0; i < 1000000; i++) {
+		for (int x = 0; x < 6; x++) {
+			int dice = rand() % 6 + 1;
+			if (dice == 1) {
+				cnt1++;
+
+			}
+		}
+		for (int y = 0; y < 12; y++) {
+			int dice = rand() % 6+1;
+			if (dice == 1) {
+				cnt2++;
+			}
+		}
+		if (cnt1 >= 1) {
+			last_cnt1++;
+			cnt1 = 0;
+		}
+		if (cnt2 >= 2) {
+			last_cnt2++;
+			cnt2 = 0;
+		}
+	}
+	printf("6번중 1번 :%lf\n12번중 2번: %lf", (double)last_cnt1 / 1000000, (double)last_cnt2 / 1000000);
+}
+7번
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+void main() {
+	srand((unsigned int)time(NULL));
+	int cnt1 = 0;
+	int cnt2 = 0;
+	int door1 = 0;
+	int door2 = 0;
+	int door3 = 0;
+	bool change = true;
+	int sport_car = 0;
+	int select_door = 0;
+	bool Win = false;
+
+	for (int i = 0; i < 1000000; i++) {
+		sport_car = rand() % 3 + 1;//1~3문 뒤에 스포츠카있는자리
+
+		switch (sport_car)
+		{
+		case 1:
+			door1 = 1;
+			break;
+		case 2:
+			door2 = 1;
+			break;
+		case 3:
+			door3 = 1;
+			break;
+		default:
+			break;
+		}
+		select_door = rand() % 3 + 1;
+
+		if (select_door == 1 && door1 == 1)
+			Win = false;
+		else if (select_door == 2 && door2 == 1)
+			Win = false;
+		else if (select_door == 3 && door3 == 1)
+			Win = false;
+		else
+			Win = true;
+
+		if (Win)
+			cnt1++;
+
+		door1 = 0;
+		door2 = 0;
+		door3 = 0;
+	}
+	for (int i = 0; i < 1000000; i++) {
+		sport_car = rand() % 3 + 1;//1~3문 뒤에 스포츠카있는자리
+
+		switch (sport_car)
+		{
+		case 1:
+			door1 = 1;
+			break;
+		case 2:
+			door2 = 1;
+			break;
+		case 3:
+			door3 = 1;
+			break;
+		default:
+			break;
+		}
+		select_door = rand() % 3 + 1;
+
+		if (select_door == 1 && door1 == 1)
+			Win = true;
+		else if (select_door == 2 && door2 == 1)
+			Win = true;
+		else if (select_door == 3 && door3 == 1)
+			Win = true;
+		else
+			Win = false;
+		if (Win)
+			cnt2++;
+
+		door1 = 0;
+		door2 = 0;
+		door3 = 0;
+	}
+	printf("change :%lf\nnot change: %lf", (double)cnt1 / 1000000, (double)cnt2 / 1000000);
+}
+8번
+#include <stdio.h> 
+
+int main(void)
+{
+	int x1, y1, x2, y2, x3, y3, x4, y4;
+	int temp1 = 0;
+	int temp2 = 0;
+	int result = 0;
+	int w = 0, h = 0;
+	scanf("%d", &x1);
+	scanf("%d", &y1);
+	scanf("%d", &x2);
+	scanf("%d", &y2);
+	scanf("%d", &x3);
+	scanf("%d", &y3);
+	scanf("%d", &x4);
+	scanf("%d", &y4);
+
+	if (x1 < x2) {
+		temp1 = x1;
+		x1 = x2;
+		x2 = temp1;
+	}
+	if (x3 < x4) {
+		temp1 = x3;
+		x3 = x4;
+		x4 = temp1;
+	}
+	if (y1 < y2) {
+		temp1 = y1;
+		y1 = y2;
+		y2 = temp1;
+	}
+	if (y3 < y4) {
+		temp1 = y3;
+		y3 = y4;
+		y4 = temp1;
+	}
+
+	//x1,x3는무조건 오른쪽  y1,y3는 무조건위에 존재한다.
+
+	if (x1 <= x4 || x3 <= x2)
+		result = 0;//안겹치는거
+	else if (y1 <= y4 || y3 <= y2)
+		result = 0;//안겹치는거
+	{
+		if (x3 <= x1&&x2 <= x3) {
+			w = x3 - x4;
+			if (y3 <= y1&&y2 <= y3) {
+				h = y3 - y4;
+			}
+			else if (y3 >= y1&&y2 >= y4) {
+				h = y1 - y2;
+			}
+			else {
+				if (y1 > y3)
+					h = y3 - y2;
+				else
+					h = y1 - y4;
+			}
+		}
+		else if (x1 <= x3&&x4 <= x2) {
+			w = x1 - x2;
+			if (y1 <= y3&&y4 <= y2) {
+				h = y1 - y2;
+			}
+			else if (y1 >= y3&&y4 >= y2) {
+				h = y3 - y4;
+			}
+			else {
+				if (y1 > y3)
+					h = y3 - y2;
+				else
+					h = y1 - y4;
+			}
+		}
+		else {
+			if (x1 > x3)
+				w = x3 - x2;
+			else
+				w = x1 - x4;
+
+			if (y1 > y3)
+				h = y3 - y2;
+			else
+				h = y1 - y4;
+		}
+		result = w*h;
+	}
+	printf("%d", result);
+	return 0;
+}
+9번
+#include<stdio.h>
+
+void main() {
+	int cnt = 0;
+	int N = 0;
+	int input = 0;
+	int one = 0;
+	int status = 0;
+	int prev_input = 0;
+	scanf("%d", &N); //갯수
+
+	while (1){
+		if (cnt == N) {
+			printf("Yes");
+			return;
+		}
+
+		scanf("%d",&input);
+
+		if (status == 0){
+			if (input == 0)
+			{
+				printf("No");
+				return;
+			}
+			status++;
+		}
+		else if (status == 1){
+			if (input == 1)
+			{
+				printf("No");
+				return;
+			}
+			status++;
+		}
+		else if (status == 2){
+			if (input == 1)
+			{
+				printf("No");
+				return;
+			}
+			status++;
+		}
+		else {
+			if (input == 1) {
+				prev_input = 1;
+				one++;
+			}
+			else if (input == 0) {
+				if (one == 1) {
+					printf("No");
+					return;
+				}
+				else {
+					if (prev_input == 1)
+					{
+						one = 0;
+						prev_input = 0;
+						status = 2;
+					}
+				}
+			}
+		}
+	
+		cnt++;
+	}
+	printf("Yes");
+}
+
+
